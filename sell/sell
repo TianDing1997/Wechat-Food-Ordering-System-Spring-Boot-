@@ -1,0 +1,8 @@
+2020-06-04 23:36:16.122  INFO 13901 --- [main] LoggerTest                : Starting LoggerTest on TTs-MacBook-Pro with PID 13901 (started by TT in /Users/TT/Desktop/springboot/sell)
+2020-06-04 23:36:16.125  INFO 13901 --- [main] LoggerTest                : No active profile set, falling back to default profiles: default
+2020-06-04 23:36:17.230  INFO 13901 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-06-04 23:36:17.523  INFO 13901 --- [main] LoggerTest                : Started LoggerTest in 1.812 seconds (JVM running for 2.606)
+2020-06-04 23:36:17.678  INFO 13901 --- [main] LoggerTest                : info...
+2020-06-04 23:36:17.678  INFO 13901 --- [main] LoggerTest                : name: imooc, password: 123456
+2020-06-04 23:36:17.679 ERROR 13901 --- [main] LoggerTest                : error...
+2020-06-04 23:36:17.689  INFO 13901 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'

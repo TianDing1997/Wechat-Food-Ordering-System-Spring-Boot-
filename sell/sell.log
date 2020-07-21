@@ -1,0 +1,48 @@
+2020-06-04 23:30:59.216  INFO 13876 --- [main] LoggerTest                : Starting LoggerTest on TTs-MacBook-Pro with PID 13876 (started by TT in /Users/TT/Desktop/springboot/sell)
+2020-06-04 23:30:59.217  INFO 13876 --- [main] LoggerTest                : No active profile set, falling back to default profiles: default
+2020-06-04 23:31:00.454  INFO 13876 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-06-04 23:31:00.728  INFO 13876 --- [main] LoggerTest                : Started LoggerTest in 1.911 seconds (JVM running for 2.828)
+2020-06-04 23:31:00.915  INFO 13876 --- [main] LoggerTest                : info...
+2020-06-04 23:31:00.916  INFO 13876 --- [main] LoggerTest                : name: imooc, password: 123456
+2020-06-04 23:31:00.917 ERROR 13876 --- [main] LoggerTest                : error...
+2020-06-04 23:31:00.924  INFO 13876 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-06-04 23:31:35.768  INFO 13880 --- [main] LoggerTest                : Starting LoggerTest on TTs-MacBook-Pro with PID 13880 (started by TT in /Users/TT/Desktop/springboot/sell)
+2020-06-04 23:31:35.770  INFO 13880 --- [main] LoggerTest                : No active profile set, falling back to default profiles: default
+2020-06-04 23:31:36.919  INFO 13880 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-06-04 23:31:37.193  INFO 13880 --- [main] LoggerTest                : Started LoggerTest in 1.791 seconds (JVM running for 2.595)
+2020-06-04 23:31:37.350  INFO 13880 --- [main] LoggerTest                : info...
+2020-06-04 23:31:37.351  INFO 13880 --- [main] LoggerTest                : name: imooc, password: 123456
+2020-06-04 23:31:37.352 ERROR 13880 --- [main] LoggerTest                : error...
+2020-06-04 23:31:37.360  INFO 13880 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-06-04 23:31:54.220  INFO 13883 --- [main] LoggerTest                : Starting LoggerTest on TTs-MacBook-Pro with PID 13883 (started by TT in /Users/TT/Desktop/springboot/sell)
+2020-06-04 23:31:54.222  INFO 13883 --- [main] LoggerTest                : No active profile set, falling back to default profiles: default
+2020-06-04 23:31:55.141  INFO 13883 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-06-04 23:31:55.329  INFO 13883 --- [main] LoggerTest                : Started LoggerTest in 1.59 seconds (JVM running for 2.382)
+2020-06-04 23:31:55.607  INFO 13883 --- [main] LoggerTest                : info...
+2020-06-04 23:31:55.607  INFO 13883 --- [main] LoggerTest                : name: imooc, password: 123456
+2020-06-04 23:31:55.609 ERROR 13883 --- [main] LoggerTest                : error...
+2020-06-04 23:31:55.624  INFO 13883 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-06-04 23:32:46.737  INFO 13887 --- [main] LoggerTest                : Starting LoggerTest on TTs-MacBook-Pro with PID 13887 (started by TT in /Users/TT/Desktop/springboot/sell)
+2020-06-04 23:32:46.739  INFO 13887 --- [main] LoggerTest                : No active profile set, falling back to default profiles: default
+2020-06-04 23:32:47.827  INFO 13887 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-06-04 23:32:48.068  INFO 13887 --- [main] LoggerTest                : Started LoggerTest in 1.766 seconds (JVM running for 2.599)
+2020-06-04 23:32:48.228  INFO 13887 --- [main] LoggerTest                : info...
+2020-06-04 23:32:48.228  INFO 13887 --- [main] LoggerTest                : name: imooc, password: 123456
+2020-06-04 23:32:48.229 ERROR 13887 --- [main] LoggerTest                : error...
+2020-06-04 23:32:48.236  INFO 13887 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-06-04 23:32:56.840  INFO 13891 --- [main] LoggerTest                : Starting LoggerTest on TTs-MacBook-Pro with PID 13891 (started by TT in /Users/TT/Desktop/springboot/sell)
+2020-06-04 23:32:56.841  INFO 13891 --- [main] LoggerTest                : No active profile set, falling back to default profiles: default
+2020-06-04 23:32:57.851  INFO 13891 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-06-04 23:32:58.076  INFO 13891 --- [main] LoggerTest                : Started LoggerTest in 1.591 seconds (JVM running for 2.317)
+2020-06-04 23:32:58.251  INFO 13891 --- [main] LoggerTest                : info...
+2020-06-04 23:32:58.251  INFO 13891 --- [main] LoggerTest                : name: imooc, password: 123456
+2020-06-04 23:32:58.252 ERROR 13891 --- [main] LoggerTest                : error...
+2020-06-04 23:32:58.263  INFO 13891 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-06-04 23:36:27.633  INFO 13904 --- [main] LoggerTest                : Starting LoggerTest on TTs-MacBook-Pro with PID 13904 (started by TT in /Users/TT/Desktop/springboot/sell)
+2020-06-04 23:36:27.634  INFO 13904 --- [main] LoggerTest                : No active profile set, falling back to default profiles: default
+2020-06-04 23:36:28.656  INFO 13904 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-06-04 23:36:28.926  INFO 13904 --- [main] LoggerTest                : Started LoggerTest in 1.766 seconds (JVM running for 2.61)
+2020-06-04 23:36:29.076  INFO 13904 --- [main] LoggerTest                : info...
+2020-06-04 23:36:29.076  INFO 13904 --- [main] LoggerTest                : name: imooc, password: 123456
+2020-06-04 23:36:29.077 ERROR 13904 --- [main] LoggerTest                : error...
+2020-06-04 23:36:29.083  INFO 13904 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
