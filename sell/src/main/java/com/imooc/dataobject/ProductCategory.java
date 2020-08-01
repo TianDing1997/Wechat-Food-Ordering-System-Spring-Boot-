@@ -34,6 +34,12 @@ public class ProductCategory {
     //category type
     private Integer categoryType;
 
+    //create Time
+    private Date createTime;
+
+    //update Time
+    private Date updateTime;
+
     public ProductCategory() {
     }
 

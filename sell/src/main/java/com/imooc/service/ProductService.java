@@ -32,4 +32,10 @@ public interface ProductService {
 
     //stock decrease
     void decreaseStock(List<CartDTO> cartDTOList);
+
+    //on sale
+    ProductInfo onSale(String productId);
+
+    //off sale
+    ProductInfo offSale(String productId);
 }

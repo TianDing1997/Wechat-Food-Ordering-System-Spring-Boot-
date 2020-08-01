@@ -23,12 +23,15 @@ public interface OrderService {
     Page<OrderDTO> findList(String buyerOpenid, Pageable pageable);
 
     /** cancel order */
-    OrderDTO cancel(String orderDTO);
+    OrderDTO cancel(OrderDTO orderDTO);
 
     /** complete order*/
     OrderDTO finish(OrderDTO orderDTO);
 
     /** pay the order */
     OrderDTO paid(OrderDTO orderDTO);
+
+    /** search all buyer's all orders */
+    Page<OrderDTO> findList(Pageable pageable);
 
 }

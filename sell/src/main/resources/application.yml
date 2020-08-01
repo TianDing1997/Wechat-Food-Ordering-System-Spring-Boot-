@@ -6,5 +6,31 @@ spring:
     url: jdbc:mysql://192.168.99.126/sell?characterEncoding=utf-8&useSSL=false
   jpa:
     show-sql: true
+  jackson:
+    default-property-inclusion: non_null
+  redis:
+    host: 192.168.99.126
+    port: 6379
 server:
   context-path: /sell
+
+wechat:
+  #myself app id
+  #mpAppId: wxbe56cf75e01b22fa
+  mpAppId: wxd898fcb01713c658
+  mpAppSecret: 1b215a5fdd34275b98158a777b65a98b
+
+  openAppId: wx6ad144e54af67d87
+  openAppSecret: 91a2ff6d38a2bbccfb7e9f9079108e2e
+
+  mchId: 1483469312
+  mchKey: 098F6BCD4621D373CADE4E832627B4F6
+  keyPath: /Users/TT/Desktop/springboot/certification/h5.p12
+  notifyUrl: http://lianlian.natapp1.cc/sell/pay/notify
+  openId: oTgZpwQiYLm8a4xWncWv6Uu7tvrQ
+
+
+projectUrl:
+  wechatMpAuthorize: http://lianlian.natapp1.cc
+  wechatOpenAuthorize: http://lianlian.natapp1.cc
+  sell: http://lianlian.natapp1.cc

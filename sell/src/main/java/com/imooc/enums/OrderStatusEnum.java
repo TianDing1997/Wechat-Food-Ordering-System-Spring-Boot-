@@ -1,6 +1,7 @@
 package com.imooc.enums;
 
 import lombok.Getter;
+import org.aopalliance.reflect.Code;
 
 /**
  * @program: sell
@@ -9,7 +10,7 @@ import lombok.Getter;
  * @create: 2020-07-17 20:43
  **/
 @Getter
-public enum OrderStatusEnum {
+public enum OrderStatusEnum implements CodeEnum {
     NEW(0, "new order"),
     FINISHED(1, "finished order"),
     CANCEL(2, "canceled")

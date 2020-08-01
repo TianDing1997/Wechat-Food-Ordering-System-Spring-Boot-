@@ -1,10 +1,16 @@
 package com.imooc.dataobject;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.imooc.enums.ProductStatusEnum;
+import com.imooc.utils.EnumUtil;
 import lombok.Data;
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @program: sell
@@ -14,6 +20,7 @@ import java.math.BigDecimal;
  **/
 @Entity
 @Data
+@DynamicUpdate
 public class ProductInfo {
 
     @Id
@@ -35,11 +42,21 @@ public class ProductInfo {
     private String productIcon;
 
     //status, 0 normal, 1 cancel
-    private Integer productStatus;
+    private Integer productStatus = ProductStatusEnum.UP.getCode();
 
     //category type
     private Integer categoryType;
 
+    //create Time
+    private Date createTime;
+
+    //update Time
+    private Date updateTime;
+
+    @JsonIgnore
+    public ProductStatusEnum getProductStatusEnum(){
+        return EnumUtil.getByCode(productStatus, ProductStatusEnum.class);
+    }
 
 
 

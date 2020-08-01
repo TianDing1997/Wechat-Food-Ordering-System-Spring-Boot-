@@ -13,8 +13,10 @@ import com.imooc.exception.SellException;
 import com.imooc.repository.OrderDetailRepository;
 import com.imooc.repository.OrderMasterRepository;
 import com.imooc.service.OrderService;
+import com.imooc.service.PayService;
 import com.imooc.service.ProductService;
 import com.imooc.utils.KeyUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -37,6 +39,7 @@ import java.util.stream.Collectors;
  * @create: 2020-07-17 22:32
  **/
 @Service
+@Slf4j
 public class OrderServiceImpl implements OrderService {
     @Autowired
     private ProductService productService;
@@ -46,6 +49,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     OrderMasterRepository orderMasterRepository;
+
+    @Autowired
+    private PayService payService;
 
     @Override
     //add transactional because if there is an error, the data will roll back
@@ -74,8 +80,8 @@ public class OrderServiceImpl implements OrderService {
 
         //3. save the order master into the database (order master)
         OrderMaster orderMaster = new OrderMaster();
+        orderDTO.setOrderId(orderId);
         BeanUtils.copyProperties(orderDTO, orderMaster);
-        orderMaster.setOrderId(orderId);
         orderMaster.setOrderAmount(orderAmount);
         orderMaster.setOrderStatus(OrderStatusEnum.NEW.getCode());
         orderMaster.setPayStatus(PayStatusEnum.WAIT.getCode());
@@ -121,18 +127,94 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderDTO cancel(String orderDTO) {
+    @Transactional
+    public OrderDTO cancel(OrderDTO orderDTO) {
+        OrderMaster orderMaster = new OrderMaster();
+
         //check the order status
-        return null;
+        if(!orderDTO.getOrderStatus().equals(OrderStatusEnum.NEW.getCode())){
+            log.error("[cancel order] wrong order status, orderId = {}, orderStatus={}", orderDTO.getOrderId(), orderDTO.getOrderStatus());
+            throw new SellException(ResultEnum.ORDER_STATUS_ERROR);
+        }
+        //change the order status to cancel
+        orderDTO.setOrderStatus(OrderStatusEnum.CANCEL.getCode());
+        BeanUtils.copyProperties(orderDTO, orderMaster);
+        OrderMaster updateResult = orderMasterRepository.save(orderMaster);
+        if(updateResult == null){
+            log.error("[cancel order] update fail, orderMaster={}", orderMaster);
+            throw new SellException(ResultEnum.ORDER_UPDATE_FAIL);
+        }
+        //restore the stock
+        if (CollectionUtils.isEmpty(orderDTO.getOrderDetailList())){
+            log.error("[cancel order] do not have order detail, orderDTO={}", orderDTO);
+            throw new SellException(ResultEnum.ORDER_DETAIL_EMPTY);
+        }
+        List<CartDTO> cartDTOList = orderDTO.getOrderDetailList().stream().map(e -> new CartDTO(e.getProductId(), e.getProductQuantity())).collect(Collectors.toList());
+        productService.increaseStock(cartDTOList);
+
+        //if already pay, pay back
+        if(orderDTO.getPayStatus().equals(PayStatusEnum.SUCCESS.getCode())){
+            payService.refund(orderDTO);
+        }
+        return orderDTO;
     }
 
     @Override
     public OrderDTO finish(OrderDTO orderDTO) {
-        return null;
+        //check the order status
+        if(!orderDTO.getOrderStatus().equals(OrderStatusEnum.NEW.getCode())){
+            log.error("[finish order] wrong order status, orderId={}, orderStatus={}",orderDTO.getOrderId(), orderDTO.getOrderStatus());
+            throw new SellException(ResultEnum.ORDER_STATUS_ERROR);
+        }
+        //change the order status
+        OrderMaster orderMaster = new OrderMaster();
+        orderDTO.setOrderStatus(OrderStatusEnum.FINISHED.getCode());
+        BeanUtils.copyProperties(orderDTO, orderMaster);
+        OrderMaster updateResult = orderMasterRepository.save(orderMaster);
+
+        if(updateResult == null){
+            log.error("[finish order] update fail, orderMaster={}", orderMaster);
+            throw new SellException(ResultEnum.ORDER_UPDATE_FAIL);
+        }
+
+        return orderDTO;
     }
 
     @Override
+    @Transactional
     public OrderDTO paid(OrderDTO orderDTO) {
-        return null;
+        //check the order status
+        if(!orderDTO.getOrderStatus().equals(OrderStatusEnum.NEW.getCode())){
+            log.error("[paid success] wrong order status, orderId={}, orderStatus={}",orderDTO.getOrderId(), orderDTO.getOrderStatus());
+            throw new SellException(ResultEnum.ORDER_STATUS_ERROR);
+        }
+
+        //check the payment status
+        if(!orderDTO.getPayStatus().equals(PayStatusEnum.WAIT.getCode())){
+            log.error("[paid success] wrong payment status, orderDTO={}", orderDTO);
+            throw  new SellException(ResultEnum.PAYMENT_STATUS_ERROR);
+        }
+
+        //change the order status
+        OrderMaster orderMaster = new OrderMaster();
+        orderDTO.setPayStatus(PayStatusEnum.SUCCESS.getCode());
+        BeanUtils.copyProperties(orderDTO, orderMaster);
+        OrderMaster updateResult = orderMasterRepository.save(orderMaster);
+
+        if(updateResult == null){
+            log.error("[paid success] update fail, orderMaster={}", orderMaster);
+            throw new SellException(ResultEnum.ORDER_UPDATE_FAIL);
+        }
+        return orderDTO;
+    }
+
+    @Override
+    public Page<OrderDTO> findList(Pageable pageable) {
+        Page<OrderMaster> orderMasterPage = orderMasterRepository.findAll(pageable);
+        List<OrderDTO> orderDTOList = OrderMaster2OrderDTOConverter.convert(orderMasterPage.getContent());
+
+        return new PageImpl<>(orderDTOList, pageable, orderMasterPage.getTotalElements());
+
+
     }
 }

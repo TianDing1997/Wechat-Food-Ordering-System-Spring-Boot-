@@ -10,7 +10,7 @@ import lombok.Getter;
  * @create: 2020-07-14 21:30
  **/
 @Getter
-public enum ProductStatusEnum {
+public enum ProductStatusEnum implements CodeEnum{
     UP(0, "on sale"),
     DOWN(1, "off sale")
     ;

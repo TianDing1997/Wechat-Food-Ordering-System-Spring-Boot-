@@ -1,5 +1,6 @@
 package com.imooc.VO;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 /**
@@ -10,6 +11,7 @@ import lombok.Data;
  * @create: 2020-07-14 23:05
  **/
 @Data
+//@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResultVO<T> {
     // wrong code
     private Integer code;
