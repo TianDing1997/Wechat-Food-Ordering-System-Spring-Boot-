@@ -46,6 +46,7 @@ public enum ResultEnum {
 
     LOGIN_FAIL(25, "login fail, login information wrong"),
 
+    LOGOUT(26, "Success Log Out"),
 
     ;
 

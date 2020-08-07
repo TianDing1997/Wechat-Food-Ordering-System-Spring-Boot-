@@ -14,11 +14,13 @@ spring:
 server:
   context-path: /sell
 
+
 wechat:
   #myself app id
-  #mpAppId: wxbe56cf75e01b22fa
-  mpAppId: wxd898fcb01713c658
+  mpAppId: wxbe56cf75e01b22fa
   mpAppSecret: 1b215a5fdd34275b98158a777b65a98b
+#  mpAppId: wxd898fcb01713c658
+#  mpAppSecret: 1b215a5fdd34275b98158a777b65a98b
 
   openAppId: wx6ad144e54af67d87
   openAppSecret: 91a2ff6d38a2bbccfb7e9f9079108e2e
@@ -28,9 +30,16 @@ wechat:
   keyPath: /Users/TT/Desktop/springboot/certification/h5.p12
   notifyUrl: http://lianlian.natapp1.cc/sell/pay/notify
   openId: oTgZpwQiYLm8a4xWncWv6Uu7tvrQ
-
+  templateId:
+    orderStatus: -wngu9UY3q0ugGt0f1qG1D5qLvRQXsKC4OgXTNsG85o
 
 projectUrl:
   wechatMpAuthorize: http://lianlian.natapp1.cc
   wechatOpenAuthorize: http://lianlian.natapp1.cc
   sell: http://lianlian.natapp1.cc
+  authorize: https://open.weixin.qq.com/connect/qrconnect?appid=wx6ad144e54af67d87&redirect_uri=http%3A%2F%2Fsell.springboot.cn%2Fsell%2Fqr%2FoTgZpwQiYLm8a4xWncWv6Uu7tvrQ&response_type=code&scope=snsapi_login&state=http://lianlian.natapp1.cc/sell/wechat/qrUserInfo
+
+#logging:
+#  level:
+#    com.imooc.dataobject.mapper: trace
+

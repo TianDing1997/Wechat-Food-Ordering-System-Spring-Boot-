@@ -69,8 +69,7 @@ public class WechatController {
     }
 
     @GetMapping("/qrUserInfo")
-    public String qrUserInfo(@RequestParam("code") String code,
-                             @RequestParam("state") String returnUrl){
+    public String qrUserInfo(@RequestParam("code") String code){
         WxMpOAuth2AccessToken wxMpOAuth2AccessToken;
         try{
             wxMpOAuth2AccessToken = wxOpenService.oauth2getAccessToken(code);
@@ -81,6 +80,9 @@ public class WechatController {
         log.info("wxMpOAuth2AccessToken={}", wxMpOAuth2AccessToken);
         String openId = wxMpOAuth2AccessToken.getOpenId();
 
+        /* because the wechat authority, we set a default returnUrl
+        * if we have a authority wechat official account, then we can add a requestparam name state*/
+        String returnUrl = projectUrlConfig.getWechatOpenAuthorize() + "/sell/seller/login";
         return "redirect:" +  returnUrl + "?openid=" + openId;
     }
 }

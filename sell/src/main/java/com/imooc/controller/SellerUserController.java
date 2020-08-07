@@ -7,6 +7,7 @@ import com.imooc.dataobject.SellerInfo;
 import com.imooc.enums.ResultEnum;
 import com.imooc.service.SellerService;
 import com.imooc.utils.CookieUtil;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 import java.util.UUID;
@@ -54,18 +56,34 @@ public class SellerUserController {
         //2. set token to redis
         String token = UUID.randomUUID().toString();
         Integer expire = RedisConstant.EXPIRE;
+
         //must set the expire time
         redisTemplate.opsForValue().set(String.format(RedisConstant.TOKEN_PREFIX,token), openid, expire, TimeUnit.SECONDS);
 
         //set token to cookie
-        CookieUtil.set(response, CookieConstant.Token, token, expire);
+        CookieUtil.set(response, CookieConstant.TOKEN, token, expire);
 
         //when we redirect to other url, please use absolute url
         return new ModelAndView("redirect:" + projectUrlConfig.getSell() + "/sell/seller/order/list");
     }
 
     @GetMapping("/logout")
-    public void logout(){
+    public ModelAndView logout(HttpServletRequest request,
+                      HttpServletResponse response,
+                      Map<String, Object> map){
+        //1. search from the cookie
+        Cookie cookie = CookieUtil.get(request, CookieConstant.TOKEN);
+        if(cookie != null){
+            // clean redis
+            redisTemplate.opsForValue().getOperations().delete(String.format(RedisConstant.TOKEN_PREFIX, cookie.getValue()));
+
+            //clean cookie
+            CookieUtil.set(response, CookieConstant.TOKEN, null, 0);
+        }
+
+        map.put("msg", ResultEnum.LOGOUT.getMessage());
+        map.put("url", "/sell/seller/order/list");
+        return new ModelAndView("/common/success", map);
 
     }
 }

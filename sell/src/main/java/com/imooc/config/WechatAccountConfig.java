@@ -4,6 +4,8 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
+
 /**
  * @program: sell
  * @description
@@ -38,4 +40,7 @@ public class WechatAccountConfig {
 
     //open id
     private  String openId;
+
+    //template id
+    private Map<String, String> templateId;
 }

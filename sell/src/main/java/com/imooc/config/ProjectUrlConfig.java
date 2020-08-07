@@ -31,4 +31,9 @@ public class ProjectUrlConfig {
      * System
      */
     private String sell;
+
+    /**
+     * authorize url
+     */
+    private String authorize;
 }
