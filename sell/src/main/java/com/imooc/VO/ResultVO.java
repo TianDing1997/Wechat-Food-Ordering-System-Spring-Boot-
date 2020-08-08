@@ -1,7 +1,7 @@
 package com.imooc.VO;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
+
+import java.io.Serializable;
 
 /**
  * the returned most outer layer object corresponding to a http request
@@ -11,8 +11,10 @@ import lombok.Data;
  * @create: 2020-07-14 23:05
  **/
 @Data
-//@JsonInclude(JsonInclude.Include.NON_NULL)
-public class ResultVO<T> {
+public class ResultVO<T> implements Serializable {
+
+    private static final long serialVersionUID = 3068837394742385883L;
+
     // wrong code
     private Integer code;
 
@@ -22,3 +24,4 @@ public class ResultVO<T> {
     //detail information
     private T data;
 }
+

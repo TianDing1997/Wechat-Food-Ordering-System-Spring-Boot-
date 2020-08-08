@@ -31,11 +31,15 @@ public class RedisLock {
             return true;
         }
 
-        // only one thread can own the lock
+        /* only one thread can own the lock, suppose current value is A; two thread value is B.
+           if one thread run the code 42 line, the oldValue should be A and it can get the lock.
+           after that another thread run the 42 line and get the old Value, but this time, the old value should
+           be B, and currentValue = A != B, so can not get the lock **/
         String currentValue = redisTemplate.opsForValue().get(key);
         //if lock expired
         if (!StringUtils.isEmpty(currentValue)
                 && Long.parseLong(currentValue) < System.currentTimeMillis()) {
+
             //get previous lock time
             String oldValue = redisTemplate.opsForValue().getAndSet(key, value);
             if (!StringUtils.isEmpty(oldValue) && oldValue.equals(currentValue)) {

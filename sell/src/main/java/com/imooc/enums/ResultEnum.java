@@ -48,6 +48,7 @@ public enum ResultEnum {
 
     LOGOUT(26, "Success Log Out"),
 
+    REDIS_LOCK(27, "Too many People, Please Wait")
     ;
 
     private Integer code;

@@ -7,7 +7,11 @@ import com.imooc.enums.ResultEnum;
 import com.imooc.exception.SellException;
 import com.imooc.repository.ProductInfoRepository;
 import com.imooc.service.ProductService;
+import com.imooc.service.RedisLock;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -22,11 +26,18 @@ import java.util.List;
  * @create: 2020-07-14 21:27
  **/
 @Service
+@CacheConfig(cacheNames = "product")
 public class ProductServiceImpl implements ProductService {
+    private static final int TIMEOUT = 20 * 1000; // redis lock time out 20 seconds
+
     @Autowired
     private ProductInfoRepository repository;
 
+    @Autowired
+    private RedisLock redisLock;
+
     @Override
+    @Cacheable(key = "123") //can not remove the key value, if do not fill key, key will be the pruductId in this case
     public ProductInfo findOne(String productId) {
         return repository.findOne(productId);
     }
@@ -42,6 +53,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @CachePut(key = "123")
     public ProductInfo save(ProductInfo productInfo) {
         return repository.save(productInfo);
     }
@@ -68,6 +80,12 @@ public class ProductServiceImpl implements ProductService {
                 throw  new SellException(ResultEnum.PRODUCT_NOT_EXIST);
             }
 
+            //add lock
+            long time = System.currentTimeMillis() + TIMEOUT;
+            if(!redisLock.lock(cartDTO.getProductId(), String.valueOf(time))) {
+                throw new SellException(ResultEnum.REDIS_LOCK);
+            }
+
             Integer result = productInfo.getProductStock() - cartDTO.getProductQuantity();
             if(result < 0){
                 throw  new SellException(ResultEnum.PRODUCT_STOCK_ERROR);
@@ -76,6 +94,9 @@ public class ProductServiceImpl implements ProductService {
             productInfo.setProductStock(result);
 
             repository.save(productInfo);
+
+            //Redis Unlock
+            redisLock.unlock(cartDTO.getProductId(), String.valueOf(time));
         }
     }
 
