@@ -44,7 +44,7 @@ public class ProductServiceImplTest {
     @Test
     public void findAll() {
         //pageable是接口，pagerequest是具体的实现类
-        PageRequest request = new PageRequest(0, 2);
+        PageRequest request = PageRequest.of(0, 2);
         Page<ProductInfo> productInfoPage = productService.findAll(request);
         Assert.assertNotEquals(0, productInfoPage.getTotalElements());
     }

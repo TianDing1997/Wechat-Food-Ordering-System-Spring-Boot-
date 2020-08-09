@@ -39,7 +39,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Cacheable(key = "123") //can not remove the key value, if do not fill key, key will be the pruductId in this case
     public ProductInfo findOne(String productId) {
-        return repository.findOne(productId);
+        return repository.findById(productId).orElse(null);
     }
 
     @Override
@@ -61,7 +61,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void increaseStock(List<CartDTO> cartDTOList) {
         for(CartDTO cartDTO: cartDTOList){
-            ProductInfo productInfo = repository.findOne(cartDTO.getProductId());
+            ProductInfo productInfo = repository.findById(cartDTO.getProductId()).orElse(null);
             if (productInfo == null){
                 throw  new SellException(ResultEnum.PRODUCT_NOT_EXIST);
             }
@@ -75,7 +75,7 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     public void decreaseStock(List<CartDTO> cartDTOList) {
         for(CartDTO cartDTO : cartDTOList){
-            ProductInfo productInfo = repository.findOne(cartDTO.getProductId());
+            ProductInfo productInfo = repository.findById(cartDTO.getProductId()).orElse(null);
             if (productInfo == null){
                 throw  new SellException(ResultEnum.PRODUCT_NOT_EXIST);
             }
@@ -102,7 +102,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductInfo onSale(String productId) {
-        ProductInfo  productInfo = repository.findOne(productId);
+        ProductInfo  productInfo = repository.findById(productId).orElse(null);
         if(productInfo == null){
             throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
         }
@@ -118,7 +118,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductInfo offSale(String productId) {
-        ProductInfo  productInfo = repository.findOne(productId);
+        ProductInfo  productInfo = repository.findById(productId).orElse(null);
         if(productInfo == null){
             throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
         }
