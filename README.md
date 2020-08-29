@@ -6,5 +6,5 @@ The code is only for the server side
 Server Side: Java + SpringBoot + SpringBoot JPA  
 DataBases: MySQL + Redis  
 Payment: Wechat API  
-Test: Juint + SpringBoot Test  
+Test: Junit + SpringBoot Test  
 
